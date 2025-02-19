@@ -1,3 +1,7 @@
+A cli client to download pdf documents from https://search.et.gr/en/advanced-search. 
+It's meant for mass download of documents, based on a given date range, for now.
+
+
 ```
 # if not on apple silicon you need to install clojure and build it with:
 ❯ clj -T:build ci
@@ -5,7 +9,7 @@
 #if on apple silicon and java installed:
 ❯ chmod +x ./run.sh
 
-❯ ./run.sh -d "2025-1-07 2025-01-07"
+❯ ./run.sh --dates "2025-1-07 2025-01-07"
 ...
 ...
 00:33:03,322 |-INFO in ch.qos.logback.classic.util.ContextInitializer@47be0f9b - ch.qos.logback.classic.util.DefaultJoranConfigurator.configure() call lasted 58 milliseconds. ExecutionStatus=DO_NOT_INVOKE_NEXT_IF_ANY
