@@ -2,7 +2,7 @@ A cli client to download pdf documents from https://search.et.gr/en/advanced-sea
 It's meant for mass download of documents, based on a given date range, for now.
 
 
-```
+```shell
 # if not on apple silicon you need to install clojure and build it with:
 ❯ clj -T:build ci
 
@@ -38,3 +38,79 @@ themis/src/search-et-cli via ☕ v21.0.6 took 2m26s
 
 themis/src/search-et-cli via ☕ v21.0.6 
 ❯ 
+```
+
+```shell
+❯ ./run.sh --dates "2025-13-07 2025-01-07"             
+Found JAR file: ./target/com.themis/et-cli-0.1.0-SNAPSHOT.jar
+Starting application...
+....
+==========================================================================================================================================
+
+01:04:48.619 [main] ERROR com.themis.et.cli.utils.dates - Failed to parse date: Text '2025-13-07' could not be parsed: Invalid value for MonthOfYear (valid values 1 - 12): 13
+** ERROR: **
+Option error: Spec failure for option 'dates': with value '2025-13-07 2025-01-07' got java.time.format.DateTimeParseException: Text '2025-13-07' could not be parsed: Invalid value for MonthOfYear (valid values 1 - 12): 13
+
+
+NAME:
+ fetcher cli - A tool to search and download documents from search.et.gr
+
+USAGE:
+  fetcher cli [command options] [arguments...]
+
+VERSION:
+ 0.0.1
+
+OPTIONS:
+   -d, --dates S  Date range to download documents for, yyyy/mm/dd or yyyy/m/d
+                  Download for single day: "2025-1-07 2025-01-07"
+                  Download for long period: "2024-01-01 2025-01-01"
+   -?, --help
+
+```
+```shell
+❯ ./run.sh --dates 2025-13-07             
+Found JAR file: ./target/com.themis/et-cli-0.1.0-SNAPSHOT.jar
+Starting application...
+....
+==========================================================================================================================================
+
+** ERROR: **
+Option error: Spec failure for option 'dates'
+-- Spec failed --------------------
+
+  "2025-13-07"
+
+This should be string of 2 dates, either yyyy/mm/dd or yyyy/m/d.
+Valid examples:
+
+                                 "2025-01-07 2025-01-07"
+                                 "2025-1-07 2025-01-13"
+                                 "2025-01-07 2025-01-9"
+Invalid examples:
+
+                                 "2025-13-07 2025-01-13"
+                                 "2025-11-06 2025-12-32"
+
+-- Relevant specs -------
+
+:com.themis.et.cli.utils.dates/date-range:
+  (clojure.spec.alpha/and
+   clojure.core/string?
+   com.themis.et.cli.utils.dates/valid-date-range-regex
+   (clojure.core/fn
+    [date-str]
+    (clojure.core/let
+     [[date1 date2] (clojure.string/split date-str #" ")]
+     (clojure.core/and
+      (com.themis.et.cli.utils.dates/valid-date? date1)
+      (com.themis.et.cli.utils.dates/valid-date? date2)))))
+
+-------------------------
+Detected 1 error
+
+
+
+NAME:
+ fetcher cli - A tool to search and download documents from search.et.gr
+ ```
