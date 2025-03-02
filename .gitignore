@@ -1,0 +1,11 @@
+/.idea/
+/.cpcache/
+/.clj-kondo/
+/.lsp/
+/data/docs/*
+/logs/
+/data/*.json
+/target/classes
+.nrepl-port
+search-et-cli.iml
+.DS_Store

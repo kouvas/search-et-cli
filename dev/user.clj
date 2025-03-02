@@ -1,6 +1,9 @@
 (ns user
-  (:require [org.httpkit.client :as http]))
+  (:require [org.httpkit.client :as http]
+            [com.themis.et.cli.http :as h]))
 
+
+(h/run-query-and-download-files! {:dates "2025-1-07 2025-01-07"})
 
 
 
